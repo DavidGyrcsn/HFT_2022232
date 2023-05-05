@@ -2,7 +2,7 @@
 
 namespace RP7XMC_HFT_2022232.Repository
 {
-    public class Class1
+    public class Repository
     {
     }
 }
