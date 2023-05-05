@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP7XMC_HFT_2022232.Client", "RP7XMC_HFT_2022232.Client\RP7XMC_HFT_2022232.Client.csproj", "{518D246C-93A4-4A8E-8C49-38016B37A79F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP7XMC_HFT_2022232.Models", "RP7XMC_HFT_2022232.Models\RP7XMC_HFT_2022232.Models.csproj", "{76F2CCE8-6B7B-4890-99FC-EF46AC53A06A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{518D246C-93A4-4A8E-8C49-38016B37A79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{518D246C-93A4-4A8E-8C49-38016B37A79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{518D246C-93A4-4A8E-8C49-38016B37A79F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F2CCE8-6B7B-4890-99FC-EF46AC53A06A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F2CCE8-6B7B-4890-99FC-EF46AC53A06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F2CCE8-6B7B-4890-99FC-EF46AC53A06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F2CCE8-6B7B-4890-99FC-EF46AC53A06A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
