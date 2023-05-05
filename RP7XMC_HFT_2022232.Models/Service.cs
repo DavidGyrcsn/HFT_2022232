@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RP7XMC_HFT_2022232.Models
 {
-    internal class Service
+    public class Service
     {
+        public int Id { get; set; }
     }
 }

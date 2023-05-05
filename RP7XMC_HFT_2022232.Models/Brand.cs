@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace RP7XMC_HFT_2022232.Models
 {
-    internal class Brand
+    public class Brand
     {
+        public int Id { get; set; }
+        public string BrandName { get; set; }
     }
 }
