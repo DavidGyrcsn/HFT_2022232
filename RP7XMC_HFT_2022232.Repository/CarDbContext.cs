@@ -10,9 +10,9 @@ namespace RP7XMC_HFT_2022232.Repository
 {
     public class CarDbContext : DbContext
     {
-        //public DbSet<Car> Cars { get; set; }
+        public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        //public DbSet<Service> Services { get; set; }    
+        public DbSet<Service> Services { get; set; }    
         public CarDbContext()
         {
             this.Database.EnsureCreated();
