@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,10 @@ namespace RP7XMC_HFT_2022232.Models
 {
     public class Service
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ServiceId { get; set; }
+        [StringLength(240)]
+        public string ServiceName { get; set; }
     }
 }
