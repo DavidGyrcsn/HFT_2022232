@@ -15,5 +15,7 @@ namespace RP7XMC_HFT_2022232.Models
         public int ServiceId { get; set; }
         [StringLength(240)]
         public string ServiceName { get; set; }
+        [NotMapped]
+        public virtual ICollection<Brand> Brands { get; set; }
     }
 }

@@ -15,5 +15,11 @@ namespace RP7XMC_HFT_2022232.Models
         public int BrandId { get; set; }
         [StringLength(240)]
         public string BrandName { get; set; }
+        public int CarId { get; set; }
+        public int ServiceId { get; set;}
+        [NotMapped]
+        public Car Car { get; set; }
+        [NotMapped]
+        public Service Service { get; set; }
     }
 }
