@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace RP7XMC_HFT_2022232.Logic
 {
-    public interface IBrandLogic
+    public interface IServiceLogic
     {
-        IQueryable<Brand> ReadAll();
-        Brand Read(int id);
-        void Create(Brand item);
-        void Update(Brand item);
+        IQueryable<Service> ReadAll();
+        Service Read(int id);
+        void Create(Service item);
+        void Update(Service item);
         void Delete(int id);
     }
 }
