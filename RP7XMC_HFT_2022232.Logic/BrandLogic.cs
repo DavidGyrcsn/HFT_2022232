@@ -13,10 +13,14 @@ namespace RP7XMC_HFT_2022232.Logic
     public class BrandLogic : IBrandLogic
     {
         IRepository<Brand> repo;
+        IRepository<Car> cars;
+        IRepository<Service> services;
 
-        public BrandLogic(IRepository<Brand> repo)
+        public BrandLogic(IRepository<Brand> repo, IRepository<Car> cars,IRepository<Service> services)
         {
             this.repo = repo;
+            this.cars = cars;   
+            this.services = services;
         }
 
         public void Create(Brand item)
@@ -49,9 +53,9 @@ namespace RP7XMC_HFT_2022232.Logic
             var groupedfirstdata = (from brand in repo.ReadAll()
 
                                     orderby brand.MaintenanceCost descending
-                                    select brand.BrandId).Take(1).FirstOrDefault();
+                                    select brand.CarId).Take(1).FirstOrDefault();
 
-            return from brand in repo.ReadAll() where brand.BrandId == groupedfirstdata select brand.BrandName;
+            return from car in cars.ReadAll() where car.CarId == groupedfirstdata select car.CarName;
         }
 
         public IEnumerable<string> LowestCost()
@@ -59,9 +63,9 @@ namespace RP7XMC_HFT_2022232.Logic
             var groupedfirstdata = (from brand in repo.ReadAll()
 
                                     orderby brand.MaintenanceCost ascending
-                                    select brand.BrandId).Take(1).FirstOrDefault();
+                                    select brand.CarId).Take(1).FirstOrDefault();
 
-            return from brand in repo.ReadAll() where brand.BrandId == groupedfirstdata select brand.BrandName;
+            return from car in cars.ReadAll() where car.CarId == groupedfirstdata select car.CarName;
         }
 
         public IEnumerable<string> AverageCostForAllBrands()
@@ -79,7 +83,8 @@ namespace RP7XMC_HFT_2022232.Logic
 
             return from brand in repo.ReadAll()
                    where groupedFirstData.Contains(brand.BrandName.ToLower())
-                   select brand.BrandName;
+                   join car in cars.ReadAll() on brand.CarId equals car.CarId
+                   select car.CarName;
         }
         public IEnumerable<int> MaintenanceCostUnder(int cost)
         {
