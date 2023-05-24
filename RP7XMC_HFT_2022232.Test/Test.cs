@@ -12,9 +12,9 @@ namespace RP7XMC_HFT_2022232.Test
     [TestFixture]
     public class Test
     {
-        BrandLogic logic;
-        CarLogic car;
-        ServiceLogic service;
+        BrandLogic brandLogic;
+        CarLogic carLogic;
+        ServiceLogic serviceLogic;
         Mock<IRepository<Brand>> mockBrandRepo;
         Mock<IRepository<Car>> mockCarRepo;
         Mock<IRepository<Service>> mockServiceRepo;
@@ -50,6 +50,10 @@ namespace RP7XMC_HFT_2022232.Test
                 new Service { ServiceId = 4, ServiceName = "Benz_márkaszervíz" },
                 new Service { ServiceId = 5, ServiceName = "Renault-Magyarország" }
             }.AsQueryable());
+
+            brandLogic = new BrandLogic(mockBrandRepo.Object,mockCarRepo.Object,mockServiceRepo.Object);
+            carLogic = new CarLogic(mockCarRepo.Object);
+            serviceLogic = new ServiceLogic(mockServiceRepo.Object);
         }
     }
 }
