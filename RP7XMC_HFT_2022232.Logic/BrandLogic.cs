@@ -64,12 +64,11 @@ namespace RP7XMC_HFT_2022232.Logic
             return from brand in repo.ReadAll() where brand.BrandId == groupedfirstdata select brand.BrandName;
         }
 
-        public double? AverageCostperBrand(int avg)
+        public IEnumerable<string> AverageCostForAllBrands()
         {
-            return this.repo
-               .ReadAll()
-               .Where(t => t.MaintenanceCost == avg)
-               .Average(t => t.MaintenanceCost);
+            var brands = this.repo.ReadAll();
+            double averageCost = brands.Average(t => t.MaintenanceCost);
+            yield return averageCost.ToString();
         }
 
         public IEnumerable<string> AlphabeticOrder()
@@ -82,12 +81,13 @@ namespace RP7XMC_HFT_2022232.Logic
                    where groupedFirstData.Contains(brand.BrandName.ToLower())
                    select brand.BrandName;
         }
-        public int MaintnanceCostUnder(int cost)
+        public IEnumerable<int> MaintenanceCostUnder(int cost)
         {
-            return this.repo
-                .ReadAll()
-                .Where(t => t.MaintenanceCost < cost)
-                .Count();
+            var brands = this.repo.ReadAll();
+
+            int count = brands.Count(t => t.MaintenanceCost < cost);
+
+            yield return count;
         }
     }
 }
