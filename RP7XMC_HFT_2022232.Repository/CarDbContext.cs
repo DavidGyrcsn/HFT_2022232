@@ -36,11 +36,11 @@ namespace RP7XMC_HFT_2022232.Repository
                 .HasForeignKey(t => t.ServiceId);
 
             modelBuilder.Entity<Brand>().HasData(
-                new Brand {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1},
-                new Brand { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4 },
-                new Brand { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3 },
-                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 },
-                new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 }
+                new Brand {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
+                new Brand { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4, MaintenanceCost = 400000 },
+                new Brand { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3, MaintenanceCost = 300000 },
+                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 },
+                new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
                 );
             modelBuilder.Entity<Car>().HasData(
                 new Car { CarId = 1, CarName = "E60"},
