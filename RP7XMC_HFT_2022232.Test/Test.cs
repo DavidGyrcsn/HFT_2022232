@@ -32,8 +32,8 @@ namespace RP7XMC_HFT_2022232.Test
                 new Brand {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
                 new Brand { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4, MaintenanceCost = 400000 },
                 new Brand { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3, MaintenanceCost = 300000 },
-                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 }
-                //new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
+                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 },
+                new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
             }.AsQueryable());
             mockCarRepo.Setup(m => m.ReadAll()).Returns(new List<Car>()
             {
@@ -104,12 +104,30 @@ namespace RP7XMC_HFT_2022232.Test
                 .Verify(r => r.Delete(It.IsAny<int>()), Times.Once);
         }
         [Test]
+        public void TestServiceDelete()
+        {
+            // Act
+            serviceLogic.Delete(1);
+
+            // Assert
+            mockServiceRepo
+                .Verify(r => r.Delete(It.IsAny<int>()), Times.Once);
+        }
+        [Test]
         public void McUnder()
         {
             //Act
             int result = brandLogic.MCUnder(75000);
             //Assert
             Assert.That(result, Is.EqualTo(1));
+        }
+        [Test]
+        public void McAbowe()
+        {
+            //Act
+            int result = brandLogic.MCAbowe(75000);
+            //Assert
+            Assert.That(result, Is.EqualTo(4));
         }
         //[Test]
         //[TestCase(new Object[] { "E60" })]
@@ -125,5 +143,34 @@ namespace RP7XMC_HFT_2022232.Test
             };
             Assert.That(result, Is.EqualTo(expected));
         }
+        [Test]
+        public void HighestCost()
+        {
+            //Act
+            var result = brandLogic.HighestCost();
+            //Assert
+            string[] expected = new string[] { "S class" };
+            Assert.That(result, Is.EqualTo(expected));
+        }
+        [Test]
+        public void LowestCost()
+        {
+            //Act
+            var result = brandLogic.LowestCost();
+            //Assert
+            string[] expected = new string[] { "Omega" };
+            Assert.That(result, Is.EqualTo(expected));
+        }
+        [Test]
+        public void AverageCostForAllBrands()
+        {
+            //Act
+            var result = brandLogic.AverageCostForAllBrands();
+            //Assert
+            string[] expected = new string[] { "250000" };
+            Assert.That(result, Is.EqualTo(expected));
+        }
+        
+       
     }
 }

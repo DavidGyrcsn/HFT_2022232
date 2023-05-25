@@ -101,6 +101,12 @@ namespace RP7XMC_HFT_2022232.Logic
                 .Where(t => t.MaintenanceCost < cost)
                 .Count();
         }
-       
+        public int MCAbowe(int cost)
+        {
+            return this.repo
+                .ReadAll()
+                .Where(t => t.MaintenanceCost > cost)
+                .Count();
+        }
     }
 }
