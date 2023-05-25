@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RP7XMC_HFT_2022232.Models
@@ -19,8 +20,10 @@ namespace RP7XMC_HFT_2022232.Models
         public int ServiceId { get; set;}
         public int MaintenanceCost { get; set; }
         [NotMapped]
+        //[JsonIgnore]
         public Car Car { get; set; }
         [NotMapped]
+        //[JsonIgnore]
         public Service Service { get; set; }
         
     }

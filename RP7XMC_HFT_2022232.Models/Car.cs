@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RP7XMC_HFT_2022232.Models
 {
@@ -13,6 +14,7 @@ namespace RP7XMC_HFT_2022232.Models
         [StringLength(240)]
         public string CarName { get; set; }
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Brand> Brands { get; set;}
 
     }
