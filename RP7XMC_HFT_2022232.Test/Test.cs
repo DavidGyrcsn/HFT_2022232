@@ -52,8 +52,63 @@ namespace RP7XMC_HFT_2022232.Test
             }.AsQueryable());
 
             brandLogic = new BrandLogic(mockBrandRepo.Object,mockCarRepo.Object,mockServiceRepo.Object);
-            carLogic = new CarLogic(mockCarRepo.Object);
-            serviceLogic = new ServiceLogic(mockServiceRepo.Object);
+            carLogic = new CarLogic(mockBrandRepo.Object, mockCarRepo.Object, mockServiceRepo.Object);
+            serviceLogic = new ServiceLogic(mockServiceRepo.Object);  
+        }
+        [Test]
+        public void TestCreateBrand()
+        {
+            var brnd = new Brand() { BrandId = 1, BrandName = "BMW", CarId = 1, ServiceId = 1, MaintenanceCost = 200000 };
+            //Act
+            brandLogic.Create(brnd);
+            //Assert
+            mockBrandRepo.Verify(r => r.Create(brnd), Times.Once);
+        }
+        [Test]
+        public void TestCreateCar()
+        {
+            var cr = new Car { CarId = 1, CarName = "E60" };
+            //Act
+            carLogic.Create(cr);
+            //Assert
+            mockCarRepo.Verify(r => r.Create(cr), Times.Once);
+        }
+        [Test]
+        public void TestCreateService()
+        {
+            var ser = new Service { ServiceId = 5, ServiceName = "Renault-Magyarország" };
+            //Act
+            serviceLogic.Create(ser);
+            //Assert
+            mockServiceRepo.Verify(r => r.Create(ser), Times.Once);
+        }
+        [Test]
+        public void TestBrandDelete()
+        {
+            // Act
+            brandLogic.Delete(1);
+
+            // Assert
+            mockBrandRepo
+                .Verify(r => r.Delete(It.IsAny<int>()), Times.Once);
+        }
+        [Test]
+        public void TestCarDelete()
+        {
+            // Act
+            carLogic.Delete(1);
+
+            // Assert
+            mockCarRepo
+                .Verify(r => r.Delete(It.IsAny<int>()), Times.Once);
+        }
+        [Test]
+        public void McUnder()
+        {
+            //Act
+            int result = brandLogic.MCUnder(75000);
+            //Assert
+            Assert.That(result, Is.EqualTo(1));
         }
     }
 }

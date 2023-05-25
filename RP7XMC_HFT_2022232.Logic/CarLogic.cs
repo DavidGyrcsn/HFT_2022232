@@ -11,11 +11,19 @@ namespace RP7XMC_HFT_2022232.Logic
     public class CarLogic : ICarLogic
     {
         IRepository<Car> repo;
+        IRepository<Brand> brands;
+        IRepository<Service> services;
 
-        public CarLogic(IRepository<Car> repo)
+        public CarLogic(IRepository<Brand> brands, IRepository<Car> repo, IRepository<Service> services)
         {
+            this.brands = brands;
             this.repo = repo;
+            this.services = services;
         }
+        //public CarLogic(IRepository<Car> repo)
+        //{
+        //    this.repo = repo;
+        //}
 
         public void Create(Car item)
         {
@@ -40,6 +48,17 @@ namespace RP7XMC_HFT_2022232.Logic
         public void Update(Car item)
         {
             this.repo.Update(item);
+        }
+        public IEnumerable<Brand> CarReturnByBrand(string carname)
+        {
+            var This = (from repo in repo.ReadAll()
+                        where repo.CarName == carname
+                        select repo).FirstOrDefault();
+
+            var List = from brands in brands.ReadAll()
+                       where brands.CarId == This.CarId
+                       select brands;
+            return List;
         }
     }
 }

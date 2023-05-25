@@ -94,5 +94,13 @@ namespace RP7XMC_HFT_2022232.Logic
 
             yield return count;
         }
+        public int MCUnder(int cost)
+        {
+            return this.repo
+                .ReadAll()
+                .Where(t => t.MaintenanceCost < cost)
+                .Count();
+        }
+       
     }
 }
