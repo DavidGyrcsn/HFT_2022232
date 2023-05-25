@@ -8,28 +8,29 @@ namespace RP7XMC_HFT_2022232.Client
 {
     internal class Program
     {
-        static RestService brandrest;
-        static RestService carrest;
-        static RestService servicerest;
+        static RestService rest;
+        //static RestService brandrest;
+        //static RestService carrest;
+        //static RestService servicerest;
         static void Create(string entity)
         {
             if (entity == "Brand")
             {
                 Console.Write("Enter Brand name: ");
                 string name = Console.ReadLine();
-                brandrest.Post(new Brand() { BrandName = name }, "brand");
+                rest.Post(new Brand() { BrandName = name }, "brand");
             }
             if (entity == "Car")
             {
                 Console.Write("Enter Car name: ");
                 string name = Console.ReadLine();
-                carrest.Post(new Car() { CarName = name }, "car");
+                rest.Post(new Car() { CarName = name }, "car");
             }
             if (entity == "Service")
             {
                 Console.Write("Enter Service name: ");
                 string name = Console.ReadLine();
-                servicerest.Post(new Service() { ServiceName = name }, "service");
+                rest.Post(new Service() { ServiceName = name }, "service");
             }
             Console.ReadLine();
         }
@@ -37,7 +38,7 @@ namespace RP7XMC_HFT_2022232.Client
         {
             if (entity == "Brand")
             {
-                List<Brand> brands = brandrest.Get<Brand>("brand");
+                List<Brand> brands = rest.Get<Brand>("brand");
                 foreach (var item in brands)
                 {
                     Console.WriteLine(item.BrandName);
@@ -45,7 +46,7 @@ namespace RP7XMC_HFT_2022232.Client
             }
             if (entity == "Car")
             {
-                List<Car> cars = carrest.Get<Car>("car");
+                List<Car> cars = rest.Get<Car>("car");
                 foreach (var item in cars)
                 {
                     Console.WriteLine(item.CarName);
@@ -53,7 +54,7 @@ namespace RP7XMC_HFT_2022232.Client
             }
             if (entity == "Service")
             {
-                List<Service> service = servicerest.Get<Service>("service");
+                List<Service> service = rest.Get<Service>("service");
                 foreach (var item in service)
                 {
                     Console.WriteLine(item.ServiceName);
@@ -67,31 +68,31 @@ namespace RP7XMC_HFT_2022232.Client
             {
                 Console.Write("Enter Brand id to update: ");
                 int id = int.Parse(Console.ReadLine());
-                Brand one = brandrest.Get<Brand>(id, "brand");
+                Brand one = rest.Get<Brand>(id, "brand");
                 Console.Write($"New name [old: {one.BrandName}]: ");
                 string name = Console.ReadLine();
                 one.BrandName = name;
-                brandrest.Put(one, "brand");
+                rest.Put(one, "brand");
             }
             if (entity == "Car")
             {
                 Console.Write("Enter Car id to update: ");
                 int id = int.Parse(Console.ReadLine());
-                Car one = carrest.Get<Car>(id, "car");
+                Car one = rest.Get<Car>(id, "car");
                 Console.Write($"New name [old: {one.CarName}]: ");
                 string name = Console.ReadLine();
                 one.CarName = name;
-                carrest.Put(one, "car");
+                rest.Put(one, "car");
             }
             if (entity == "Service")
             {
                 Console.Write("Enter Service id to update: ");
                 int id = int.Parse(Console.ReadLine());
-                Service one = servicerest.Get<Service>(id, "service");
+                Service one = rest.Get<Service>(id, "service");
                 Console.Write($"New name [old: {one.ServiceName}]: ");
                 string name = Console.ReadLine();
                 one.ServiceName = name;
-                servicerest.Put(one, "service");
+                rest.Put(one, "service");
             }
         }
         static void Delete(string entity)
@@ -100,24 +101,24 @@ namespace RP7XMC_HFT_2022232.Client
             {
                 Console.Write("Enter Brand id to delete: ");
                 int id = int.Parse(Console.ReadLine());
-                brandrest.Delete(id, "brand");
+                rest.Delete(id, "brand");
             }
             if (entity == "Car")
             {
                 Console.Write("Enter Car id to delete: ");
                 int id = int.Parse(Console.ReadLine());
-                carrest.Delete(id, "car");
+                rest.Delete(id, "car");
             }
             if (entity == "Service")
             {
                 Console.Write("Enter Service id to delete: ");
                 int id = int.Parse(Console.ReadLine());
-                servicerest.Delete(id, "service");
+                rest.Delete(id, "service");
             }
         }
         static void Main(string[] args)
         {
-            brandrest = new RestService("http://localhost:2810/", "swagger");
+            rest = new RestService("http://localhost:2810/", "swagger");
 
             var brandSubMenu = new ConsoleMenu(args, level: 1)
             .Add("List", () => List("Brand"))
