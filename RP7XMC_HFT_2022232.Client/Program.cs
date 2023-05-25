@@ -117,7 +117,7 @@ namespace RP7XMC_HFT_2022232.Client
         }
         static void Main(string[] args)
         {
-            brandrest = new RestService("http://localhost:2810/", "brand");
+            brandrest = new RestService("http://localhost:2810/", "swagger");
 
             var brandSubMenu = new ConsoleMenu(args, level: 1)
             .Add("List", () => List("Brand"))
