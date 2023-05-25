@@ -49,11 +49,11 @@ namespace RP7XMC_HFT_2022232.Logic
         {
             this.repo.Update(item);
         }
-        public IEnumerable<Brand> CarReturnByBrand(string carname)
+         public IEnumerable<Brand> CarReturnByBrand(string carname)
         {
             var This = (from repo in repo.ReadAll()
-                        where repo.CarName == carname
-                        select repo).FirstOrDefault();
+                            where repo.CarName == carname
+                            select repo).FirstOrDefault();
 
             var List = from brands in brands.ReadAll()
                        where brands.CarId == This.CarId

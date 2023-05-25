@@ -6,6 +6,7 @@ using RP7XMC_HFT_2022232.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace RP7XMC_HFT_2022232.Test
 {
@@ -31,8 +32,8 @@ namespace RP7XMC_HFT_2022232.Test
                 new Brand {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
                 new Brand { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4, MaintenanceCost = 400000 },
                 new Brand { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3, MaintenanceCost = 300000 },
-                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 },
-                new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
+                new Brand { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 }
+                //new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
             }.AsQueryable());
             mockCarRepo.Setup(m => m.ReadAll()).Returns(new List<Car>()
             {
@@ -109,6 +110,20 @@ namespace RP7XMC_HFT_2022232.Test
             int result = brandLogic.MCUnder(75000);
             //Assert
             Assert.That(result, Is.EqualTo(1));
+        }
+        //[Test]
+        //[TestCase(new Object[] { "E60" })]
+        public void CarReturnByBrand(string carname)
+        {
+            //Act
+            var result = carLogic.CarReturnByBrand(carname);
+            //Assert
+            var expected = new List<Brand>()
+            {
+                new Brand {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
+                new Brand { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
+            };
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }
