@@ -11,6 +11,10 @@ namespace RP7XMC_HFT_2022232.Models
 {
     public class Brand
     {
+        public Brand()
+        {
+            //Cars = new HashSet<Car>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BrandId { get; set; }
@@ -20,11 +24,14 @@ namespace RP7XMC_HFT_2022232.Models
         public int ServiceId { get; set;}
         public int MaintenanceCost { get; set; }
         [NotMapped]
-        //[JsonIgnore]
-        public Car Car { get; set; }
+        [JsonIgnore]
+        //public virtual ICollection<Car> Cars { get; set; }
+        //[NotMapped]
+        //public virtual ICollection<Service> Services { get; set; }
+        public virtual Car Car { get; set; }
         [NotMapped]
         //[JsonIgnore]
-        public Service Service { get; set; }
-        
+        public virtual Service Service { get; set; }
+
     }
 }

@@ -19,5 +19,10 @@ namespace RP7XMC_HFT_2022232.Models
         [NotMapped]
         [JsonIgnore]
         public virtual ICollection<Brand> Brands { get; set; }
+        //public virtual Brand Brand { get; set; }
+        public Service()
+        {
+            Brands = new HashSet<Brand>();
+        }
     }
 }

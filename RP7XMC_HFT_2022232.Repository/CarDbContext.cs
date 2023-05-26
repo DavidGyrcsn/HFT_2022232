@@ -28,21 +28,18 @@ namespace RP7XMC_HFT_2022232.Repository
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Car)
                 .WithMany(t => t.Brands)
+                //.HasMany(t => t.Cars)
+                //.WithOne(t => t.Brand)
                 .HasForeignKey(t => t.CarId);
 
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Service)
                 .WithMany(t => t.Brands)
+                //.HasMany(t => t.Services)
+                //.WithOne(t => t.Brand)
                 .HasForeignKey(t => t.ServiceId);
 
-            modelBuilder.Entity<Brand>().HasData(new Brand[]
-                {
-                new Brand() {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
-                new Brand() { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4, MaintenanceCost = 400000 },
-                new Brand() { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3, MaintenanceCost = 300000 },
-                new Brand() { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 },
-                new Brand() { BrandId = 1, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
-                });
+            
             modelBuilder.Entity<Car>().HasData(new Car[] {
                 new Car() { CarId = 1, CarName = "E60"},
                 new Car() { CarId = 2, CarName = "S class" },
@@ -56,7 +53,15 @@ namespace RP7XMC_HFT_2022232.Repository
                 new Service() { ServiceId = 3, ServiceName = "Lakatos.kft" },
                 new Service() { ServiceId = 4, ServiceName = "Benz_márkaszervíz" },
                 new Service() { ServiceId = 5, ServiceName = "Renault-Magyarország" }
-                }) ;
+                });
+            modelBuilder.Entity<Brand>().HasData(new Brand[]
+                {
+                new Brand() {BrandId = 1, BrandName = "BMW",CarId =1 ,ServiceId =1,MaintenanceCost = 200000},
+                new Brand() { BrandId = 2, BrandName = "MercededsBenz", CarId = 2, ServiceId = 4, MaintenanceCost = 400000 },
+                new Brand() { BrandId = 3, BrandName = "Audi", CarId = 3, ServiceId = 3, MaintenanceCost = 300000 },
+                new Brand() { BrandId = 4, BrandName = "Opel", CarId = 5, ServiceId = 2 , MaintenanceCost = 50000 },
+                new Brand() { BrandId = 5, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
+                });
 
             base.OnModelCreating(modelBuilder);
         }
