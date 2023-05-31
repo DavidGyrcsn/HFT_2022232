@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace RP7XMC_HFT_2022232.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ServiceController : ControllerBase
     {
