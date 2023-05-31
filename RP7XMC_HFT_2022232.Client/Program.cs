@@ -19,6 +19,7 @@ namespace RP7XMC_HFT_2022232.Client
                 Console.Write("Enter Brand name: ");
                 string name = Console.ReadLine();
                 rest.Post(new Brand() { BrandName = name }, "brand");
+                //brandrest.Post(new Brand() { BrandName = name }, "brand");
             }
             if (entity == "Car")
             {
@@ -147,7 +148,7 @@ namespace RP7XMC_HFT_2022232.Client
             .Add("Services", () => serviceSubMenu.Show())
             .Add("Exit", ConsoleMenu.Close);
 
-            menu.Show();
+            menu.Show();          
         }
     }
 }

@@ -21,7 +21,7 @@ namespace RP7XMC_HFT_2022232.Repository
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseInMemoryDatabase("Service");
-            base.OnConfiguring(optionsBuilder);
+            //base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,14 +30,16 @@ namespace RP7XMC_HFT_2022232.Repository
                 //.WithMany(t => t.Brands)
                 .HasMany(t => t.Cars)
                 .WithOne(t => t.Brand)
-                .HasForeignKey(t => t.CarId);
-           
+                .HasForeignKey(t => t.CarId)
+            .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Service)
                 .WithMany(t => t.Brands)
                 //.HasMany(t => t.Services)
                 //.WithOne(t => t.Brand)
-                .HasForeignKey(t => t.ServiceId);
+                .HasForeignKey(t => t.ServiceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             
             modelBuilder.Entity<Car>().HasData(new Car[] {
@@ -63,7 +65,7 @@ namespace RP7XMC_HFT_2022232.Repository
                 new Brand() { BrandId = 5, BrandName = "BMW", CarId = 4, ServiceId = 1 , MaintenanceCost = 300000 }
                 });
 
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }

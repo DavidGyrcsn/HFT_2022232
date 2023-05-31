@@ -43,7 +43,7 @@ namespace RP7XMC_HFT_2022232.Endpoint
             services.AddTransient<ICarLogic, CarLogic>();
             services.AddTransient<IServiceLogic, ServiceLogic>();
 
-            services.AddSignalR();
+            //services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

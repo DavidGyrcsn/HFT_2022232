@@ -35,6 +35,12 @@ namespace RP7XMC_HFT_2022232.Logic
 
         public Brand Read(int id)
         {
+            var obj = this.repo.ReadAll();
+            //return this.repo.Read(id);
+            if (obj == null)
+            {
+                return this.repo.Read(id);
+            }
             return this.repo.Read(id);
         }
 
