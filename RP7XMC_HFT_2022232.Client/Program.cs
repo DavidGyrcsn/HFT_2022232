@@ -3,6 +3,7 @@ using RP7XMC_HFT_2022232.Models;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Channels;
 
 namespace RP7XMC_HFT_2022232.Client
 {
@@ -117,6 +118,53 @@ namespace RP7XMC_HFT_2022232.Client
                 rest.Delete(id, "service");
             }
         }
+        static void NonCrud(string entity)
+        {
+            if (entity == "HighestCost")
+            {
+                List<string> service = rest.Get<string>("/Values/HighestCost");
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            if (entity == "LowestCost")
+            {
+                List<string> service = rest.Get<string>("/Values/LowestCost");
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            if (entity == "AverageCostForAllBrands")
+            {
+                List<string> service = rest.Get<string>("/Values/AverageCostForAllBrands");
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            if (entity == "MaintenanceCostUnder")
+            {
+                int cost = int.Parse(Console.ReadLine());
+                List<string> service = rest.Get<string>("/Values/MaintenanceCostUnder/"+ cost);
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            if (entity == "MaintenanceCostAbowe")
+            {
+                int cost = int.Parse(Console.ReadLine());
+                List<string> service = rest.Get<string>("/Values/MaintenanceCostAbowe/" + cost);
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:2810/", "swagger");
@@ -142,11 +190,21 @@ namespace RP7XMC_HFT_2022232.Client
             .Add("Update", () => Update("Service"))
             .Add("Exit", ConsoleMenu.Close);
 
+            var valueSubMenu = new ConsoleMenu(args, level: 1)
+            .Add("HighestCost", () => NonCrud("HighestCost"))
+            .Add("LowestCost", () => NonCrud("LowestCost"))
+            .Add("AverageCostForAllBrands", () => NonCrud("AverageCostForAllBrands"))
+            .Add("MaintenanceCostUnder", () => NonCrud("MaintenanceCostUnder"))
+            .Add("MaintenanceCostAbowe", () => NonCrud("MaintenanceCostAbowe"))
+            .Add("Exit", ConsoleMenu.Close);
+
             var menu = new ConsoleMenu(args, level: 0)
             .Add("Brands", () => brandSubMenu.Show())
             .Add("Cars", () => carSubMenu.Show())
             .Add("Services", () => serviceSubMenu.Show())
+            .Add("Value",() => valueSubMenu.Show())
             .Add("Exit", ConsoleMenu.Close);
+           
 
             menu.Show();          
         }

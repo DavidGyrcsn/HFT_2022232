@@ -37,17 +37,22 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         {
             return brandLogic.AverageCostForAllBrands();
         }
-        [HttpGet]
+        [HttpGet("{cost}")]
         public IEnumerable<int> MaintenanceCostUnder(int cost)
         {
             return brandLogic.MaintenanceCostUnder(cost);
         }
-        [HttpGet]
+        [HttpGet("{cost}")]
+        public IEnumerable<int> MaintenanceCostAbowe(int cost)
+        {
+            return brandLogic.MaintenanceCostAbowe(cost);
+        }
+        [HttpGet("{cost}")]
         public int MCUnder(int cost)
         { 
             return brandLogic.MCUnder(cost);
         }
-        [HttpGet]
+        [HttpGet("{cost}")]
         public int MCAbowe(int cost)
         {
             return brandLogic.MCAbowe(cost);

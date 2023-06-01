@@ -18,6 +18,7 @@ namespace RP7XMC_HFT_2022232.Logic
         public IEnumerable<string> LowestCost();
         public IEnumerable<string> AverageCostForAllBrands();
         public IEnumerable<int> MaintenanceCostUnder(int cost);
+        public IEnumerable<int> MaintenanceCostAbowe(int cost);
         public int MCUnder(int cost);
         public int MCAbowe(int cost);
     }

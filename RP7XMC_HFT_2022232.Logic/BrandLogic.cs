@@ -100,6 +100,14 @@ namespace RP7XMC_HFT_2022232.Logic
 
             yield return count;
         }
+        public IEnumerable<int> MaintenanceCostAbowe(int cost)
+        {
+            var brands = this.repo.ReadAll();
+
+            int count = brands.Count(t => t.MaintenanceCost > cost);
+
+            yield return count;
+        }
         public int MCUnder(int cost)
         {
             return this.repo
