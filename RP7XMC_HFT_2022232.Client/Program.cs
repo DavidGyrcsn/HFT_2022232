@@ -144,6 +144,14 @@ namespace RP7XMC_HFT_2022232.Client
                     Console.WriteLine(item);
                 }
             }
+            if (entity == "AlphabeticOrder")
+            {
+                List<string> service = rest.Get<string>("/Values/AlphabeticOrder");
+                foreach (var item in service)
+                {
+                    Console.WriteLine(item);
+                }
+            }
             if (entity == "MaintenanceCostUnder")
             {
                 int cost = int.Parse(Console.ReadLine());
@@ -194,6 +202,7 @@ namespace RP7XMC_HFT_2022232.Client
             .Add("HighestCost", () => NonCrud("HighestCost"))
             .Add("LowestCost", () => NonCrud("LowestCost"))
             .Add("AverageCostForAllBrands", () => NonCrud("AverageCostForAllBrands"))
+            .Add("AlphabeticOrder", () => NonCrud("AlphabeticOrder"))
             .Add("MaintenanceCostUnder", () => NonCrud("MaintenanceCostUnder"))
             .Add("MaintenanceCostAbowe", () => NonCrud("MaintenanceCostAbowe"))
             .Add("Exit", ConsoleMenu.Close);

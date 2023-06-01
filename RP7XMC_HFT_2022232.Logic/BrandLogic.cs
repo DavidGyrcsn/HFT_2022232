@@ -83,14 +83,14 @@ namespace RP7XMC_HFT_2022232.Logic
 
         public IEnumerable<string> AlphabeticOrder()
         {
-            var groupedFirstData = (from brand in repo.ReadAll()
-                                    orderby brand.BrandName ascending
-                                    select brand.BrandName.ToLower());
+            var groupedFirstData = from brand in repo.ReadAll()
+                                    orderby brand.BrandName descending
+                                    select brand.BrandName.ToLower();
 
-            return from brand in repo.ReadAll()
-                   where groupedFirstData.Contains(brand.BrandName.ToLower())
-                   join car in cars.ReadAll() on brand.CarId equals car.CarId
-                   select car.CarName;
+            return (from brand in repo.ReadAll()
+                    where groupedFirstData.Contains(brand.BrandName.ToLower())
+                    join car in cars.ReadAll() on brand.CarId equals car.CarId
+                    select car.CarName).OrderBy(carName => carName);
         }
         public IEnumerable<int> MaintenanceCostUnder(int cost)
         {

@@ -114,6 +114,17 @@ namespace RP7XMC_HFT_2022232.Test
                 .Verify(r => r.Delete(It.IsAny<int>()), Times.Once);
         }
         [Test]
+        public void AlphabeticOrder()
+        {
+            var result = brandLogic.AlphabeticOrder();
+            //Assert
+            var expected = new List<string>()
+            {
+                "A8", "E39", "E60", "Omega", "S class"
+            };
+            Assert.That(result, Is.EqualTo(expected));
+        }
+        [Test]
         public void McUnder()
         {
             //Act
