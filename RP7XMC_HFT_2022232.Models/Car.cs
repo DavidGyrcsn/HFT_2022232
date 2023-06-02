@@ -13,10 +13,11 @@ namespace RP7XMC_HFT_2022232.Models
         public int CarId { get; set; }
         [StringLength(240)]
         public string CarName { get; set; }
+        public int BrandId { get; set; }
         [NotMapped]
         [JsonIgnore]
-        public virtual ICollection<Brand> Brands { get; set; }
-        //public virtual Brand Brand { get; set; }
+        //public virtual ICollection<Brand> Brands { get; set; }
+        public virtual Brand Brand { get; set; }
         //public Car()
         //{
         //    Brands = new HashSet<Brand>();

@@ -27,10 +27,11 @@ namespace RP7XMC_HFT_2022232.Repository
         {
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Car)
-                .WithMany(t => t.Brands)
+                //.WithMany(t => t.Brands)
+                .WithOne(t=>t.Brand)
                 //.HasMany(t => t.Cars)
                 //.WithOne(t => t.Brand)
-                .HasForeignKey(t => t.CarId)
+                .HasForeignKey<Car>(t => t.BrandId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Brand>()
@@ -43,11 +44,11 @@ namespace RP7XMC_HFT_2022232.Repository
 
             
             modelBuilder.Entity<Car>().HasData(new Car[] {
-                new Car() { CarId = 1, CarName = "E60"},
-                new Car() { CarId = 2, CarName = "S class" },
-                new Car() { CarId = 3, CarName = "A8" },
-                new Car() { CarId = 4, CarName = "E39" },
-                new Car (){ CarId = 5, CarName = "Omega" }
+                new Car() { CarId = 1, CarName = "E60",BrandId = 1},
+                new Car() { CarId = 2, CarName = "S class" ,BrandId = 2},
+                new Car() { CarId = 3, CarName = "A8" ,BrandId = 3},
+                new Car() { CarId = 4, CarName = "E39" ,BrandId = 5},
+                new Car (){ CarId = 5, CarName = "Omega" ,BrandId = 4}
                 });
             modelBuilder.Entity<Service>().HasData(new Service[] {
                 new Service() { ServiceId = 1, ServiceName = "BMW_Budeapest" },
