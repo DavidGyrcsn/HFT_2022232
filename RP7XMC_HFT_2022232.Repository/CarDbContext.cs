@@ -26,12 +26,12 @@ namespace RP7XMC_HFT_2022232.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Brand>()
-                //.HasOne(t => t.Car)
-                //.WithMany(t => t.Brands)
-                .HasMany(t => t.Cars)
-                .WithOne(t => t.Brand)
+                .HasOne(t => t.Car)
+                .WithMany(t => t.Brands)
+                //.HasMany(t => t.Cars)
+                //.WithOne(t => t.Brand)
                 .HasForeignKey(t => t.CarId)
-            .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Service)

@@ -21,16 +21,16 @@ namespace RP7XMC_HFT_2022232.Models
         public int MaintenanceCost { get; set; }
         [NotMapped]
         [JsonIgnore]
-        public virtual ICollection<Car> Cars { get; set; }
+        //public virtual ICollection<Car> Cars { get; set; }
         //[NotMapped]
         //public virtual ICollection<Service> Services { get; set; }
-        //public virtual Car Car { get; set; }
+        public virtual Car Car { get; set; }
         [NotMapped]
         //[JsonIgnore]
         public virtual Service Service { get; set; }
-        public Brand()
-        {
-            Cars = new HashSet<Car>();
-        }
+        //public Brand()
+        //{
+        //    Cars = new HashSet<Car>();
+        //}
     }
 }
