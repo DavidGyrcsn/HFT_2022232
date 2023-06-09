@@ -27,18 +27,17 @@ namespace RP7XMC_HFT_2022232.Repository
         {
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Car)
-                //.WithMany(t => t.Brands)
-                .WithOne(t=>t.Brand)
+                .WithMany(t => t.Brands)
                 //.HasMany(t => t.Cars)
                 //.WithOne(t => t.Brand)
-                .HasForeignKey<Car>(t => t.BrandId)
+                //.HasForeignKey<Car>(t => t.BrandId)
+                .HasForeignKey(t => t.CarId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Brand>()
                 .HasOne(t => t.Service)
                 .WithMany(t => t.Brands)
-                //.HasMany(t => t.Services)
-                //.WithOne(t => t.Brand)
+                
                 .HasForeignKey(t => t.ServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
