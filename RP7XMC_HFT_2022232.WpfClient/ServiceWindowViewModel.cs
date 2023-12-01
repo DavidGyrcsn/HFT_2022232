@@ -4,16 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
 using RP7XMC_HFT_2022232.Models;
 
 namespace RP7XMC_HFT_2022232.WpfClient
 {
-    public class BrandWindowViewModel : ObservableRecipient
+    public class ServiceWindowViewModel : ObservableRecipient
     {
         private string errorMessage;
 
@@ -24,38 +23,36 @@ namespace RP7XMC_HFT_2022232.WpfClient
         }
 
 
-        public RestCollection<Brand> Brands { get; set; }
+        public RestCollection<Service> Services { get; set; }
 
-        private Brand selectedBrand;
+        private Service selectedService;
 
-        public Brand SelectedBrand
+        public Service SelectedService
         {
-            get { return selectedBrand; }
+            get { return selectedService; }
             set
             {
                 if (value != null)
                 {
-                    selectedBrand = new Brand()
+                    selectedService = new Service()
                     {
-                        BrandName = value.BrandName,
-                        BrandId = value.BrandId
+                        ServiceName = value.ServiceName,
+                        ServiceId = value.ServiceId
                     };
                     OnPropertyChanged();
-                    (DeleteBrandCommand as RelayCommand).NotifyCanExecuteChanged();
+                    (DeleteServiceCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
 
 
-        public ICommand CreateBrandCommand { get; set; }
+        public ICommand CreateServiceCommand { get; set; }
 
-        public ICommand DeleteBrandCommand { get; set; }
+        public ICommand DeleteServiceCommand { get; set; }
 
-        public ICommand UpdateBrandCommand { get; set; }
-
+        public ICommand UpdateServiceCommand { get; set; }
+        public ICommand BrandCommand { get; set; }
         public ICommand CarCommand { get; set; }
-
-        public ICommand ServiceCommand { get; set; }
 
         public static bool IsInDesignMode
         {
@@ -67,33 +64,32 @@ namespace RP7XMC_HFT_2022232.WpfClient
         }
 
 
-        public BrandWindowViewModel()
+        public ServiceWindowViewModel()
         {
             if (!IsInDesignMode)
             {
-                Brands = new RestCollection<Brand>("http://localhost:2810/", "brand");
+                Services = new RestCollection<Service>("http://localhost:2810/", "service");
+                BrandCommand = new RelayCommand(() =>
+                {
+                    new BrandWindow().Show();
+                });
                 CarCommand = new RelayCommand(() =>
                 {
                     new MainWindow().Show();
                 });
-                ServiceCommand = new RelayCommand(() =>
+                CreateServiceCommand = new RelayCommand(() =>
                 {
-                    new ServiceWindow().Show();
-                });
-
-                CreateBrandCommand = new RelayCommand(() =>
-                {
-                    Brands.Add(new Brand()
+                    Services.Add(new Service()
                     {
-                        BrandName = SelectedBrand.BrandName
+                        ServiceName = SelectedService.ServiceName
                     });
                 });
 
-                UpdateBrandCommand = new RelayCommand(() =>
+                UpdateServiceCommand = new RelayCommand(() =>
                 {
                     try
                     {
-                        Brands.Update(SelectedBrand);
+                        Services.Update(SelectedService);
                     }
                     catch (ArgumentException ex)
                     {
@@ -102,15 +98,15 @@ namespace RP7XMC_HFT_2022232.WpfClient
 
                 });
 
-                DeleteBrandCommand = new RelayCommand(() =>
+                DeleteServiceCommand = new RelayCommand(() =>
                 {
-                    Brands.Delete(SelectedBrand.BrandId);
+                    Services.Delete(SelectedService.ServiceId);
                 },
                 () =>
                 {
-                    return SelectedBrand != null;
+                    return SelectedService != null;
                 });
-                SelectedBrand = new Brand();
+                SelectedService = new Service();
             }
 
         }

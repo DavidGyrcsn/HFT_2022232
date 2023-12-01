@@ -52,6 +52,7 @@ namespace RP7XMC_HFT_2022232.WpfClient
 
             public ICommand UpdateCarCommand { get; set; }
             public ICommand BrandCommand { get; set; }
+            public ICommand ServiceCommand { get; set; }
 
         public static bool IsInDesignMode
             {
@@ -71,6 +72,10 @@ namespace RP7XMC_HFT_2022232.WpfClient
                 BrandCommand = new RelayCommand(() =>
                 {
                     new BrandWindow().Show();
+                });
+                ServiceCommand = new RelayCommand(() =>
+                {
+                    new ServiceWindow().Show();
                 });
 
                 CreateCarCommand = new RelayCommand(() =>
