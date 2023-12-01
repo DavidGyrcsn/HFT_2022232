@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RP7XMC_HFT_2022232.Endpoint.Services;
 using RP7XMC_HFT_2022232.Logic;
 using RP7XMC_HFT_2022232.Models;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
     public class ServiceController : ControllerBase
     {
         IServiceLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public ServiceController(IServiceLogic logic)
+        public ServiceController(IServiceLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         // GET: api/<BrandController>
@@ -37,6 +41,7 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Create([FromBody] Service value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("ServiceCreated", value);
         }
 
         // PUT api/<BrandController>/5
@@ -44,13 +49,16 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Update(int id, [FromBody] Service value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("ServiceUpdated", value);
         }
 
         // DELETE api/<BrandController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var serviceToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("ServiceDeleted", serviceToDelete);
         }
     }
 }

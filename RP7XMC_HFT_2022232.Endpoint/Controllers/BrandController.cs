@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RP7XMC_HFT_2022232.Endpoint.Services;
 using RP7XMC_HFT_2022232.Logic;
 using RP7XMC_HFT_2022232.Models;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
     public class BrandController : ControllerBase
     {
         IBrandLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public BrandController(IBrandLogic logic)
+        public BrandController(IBrandLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         // GET: api/<BrandController>
@@ -37,6 +41,7 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Create([FromBody] Brand value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("BrandCreated", value);
         }
 
         // PUT api/<BrandController>/5
@@ -44,13 +49,16 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Update(int id, [FromBody] Brand value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("BrandUpdated", value);
         }
 
         // DELETE api/<BrandController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var brandToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("BrandDeleted", brandToDelete);
         }
     }
 }
