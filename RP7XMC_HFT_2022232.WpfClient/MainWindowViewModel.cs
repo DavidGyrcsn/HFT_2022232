@@ -68,7 +68,7 @@ namespace RP7XMC_HFT_2022232.WpfClient
             {
                 if (!IsInDesignMode)
                 {
-                Cars = new RestCollection<Car>("http://localhost:2810/", "car");
+                Cars = new RestCollection<Car>("http://localhost:2810/", "car","hub");
                 BrandCommand = new RelayCommand(() =>
                 {
                     new BrandWindow().Show();

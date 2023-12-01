@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RP7XMC_HFT_2022232.Endpoint.Services;
 using RP7XMC_HFT_2022232.Logic;
 using RP7XMC_HFT_2022232.Models;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
     public class CarController : ControllerBase
     {
         ICarLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public CarController(ICarLogic logic)
+        public CarController(ICarLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         // GET: api/<CarController>
@@ -37,6 +41,7 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Create([FromBody] Car value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("CarCreated", value);
         }
 
         // PUT api/<CarController>/5
@@ -44,13 +49,16 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
         public void Update(int id, [FromBody] Car value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("CarUpdated", value);
         }
 
         // DELETE api/<CarController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
-        { 
+        {
+            var carToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("CarDeleted", carToDelete);
         }
     }
 }

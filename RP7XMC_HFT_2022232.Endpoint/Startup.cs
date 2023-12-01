@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RP7XMC_HFT_2022232.Endpoint.Services;
 
 namespace RP7XMC_HFT_2022232.Endpoint
 {
@@ -43,7 +44,7 @@ namespace RP7XMC_HFT_2022232.Endpoint
             services.AddTransient<ICarLogic, CarLogic>();
             services.AddTransient<IServiceLogic, ServiceLogic>();
 
-            //services.AddSignalR();
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -68,6 +69,7 @@ namespace RP7XMC_HFT_2022232.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
