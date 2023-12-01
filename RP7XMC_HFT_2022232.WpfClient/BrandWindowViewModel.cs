@@ -53,6 +53,8 @@ namespace RP7XMC_HFT_2022232.WpfClient
 
         public ICommand UpdateBrandCommand { get; set; }
 
+        public ICommand CarCommand { get; set; }
+
         public static bool IsInDesignMode
         {
             get
@@ -68,6 +70,11 @@ namespace RP7XMC_HFT_2022232.WpfClient
             if (!IsInDesignMode)
             {
                 Brands = new RestCollection<Brand>("http://localhost:2810/", "brand");
+                CarCommand = new RelayCommand(() =>
+                {
+                    new MainWindow().Show();
+                });
+
                 CreateBrandCommand = new RelayCommand(() =>
                 {
                     Brands.Add(new Brand()
