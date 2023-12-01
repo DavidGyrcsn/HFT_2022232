@@ -27,7 +27,9 @@
             <Button Content="Create Car" Command="{Binding CreateCarCommand}" Margin="10" Padding="10" />
             <Button Content="Delete Car" Command="{Binding DeleteCarCommand}" Margin="10" Padding="10" />
             <Button Content="Update Car" Command="{Binding UpdateCarCommand}" Margin="10" Padding="10" />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+            <Button Content="Open Brands" Command="{Binding BrandCommand}" Margin="10" Padding="10" />
+
+            <Label x:Name="BrandPage" Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
     </Grid>
 </Window>
