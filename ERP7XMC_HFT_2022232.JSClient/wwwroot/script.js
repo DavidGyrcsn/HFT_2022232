@@ -49,7 +49,7 @@ async function start() {
 };
 
 async function getdata() {
-    await fetch('http://localhost:2810/car')
+    await fetch('http://localhost:2810/Car')
         .then(x => x.json())
         .then(y => {
             cars = y;
@@ -62,15 +62,15 @@ function display() {
     document.getElementById('resultarea').innerHTML = "";
     cars.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
-            "<tr><td>" + t.CarId + "</td><td>"
-            + t.CarName + "</td><td>" +
-            `<button type="button" onclick="remove(${t.CarId})">Delete</button>`
+            "<tr><td>" + t.carId + "</td><td>"
+            + t.carName + "</td><td>" +
+            `<button type="button" onclick="remove(${t.carId})">Delete</button>`
             + "</td></tr>";
     });
 }
 
 function remove(id) {
-    fetch('http://localhost:2810/car/' + id, {
+    fetch('http://localhost:2810/Car/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: null
@@ -85,12 +85,12 @@ function remove(id) {
 }
 
 function create() {
-    let name = document.getElementById('Carname').value;
-    fetch('http://localhost:2810/car', {
+    let name = document.getElementById('carName').value;
+    fetch('http://localhost:2810/Car', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(
-            { CarName: name })
+            { carName: name })
     })
         .then(response => response)
         .then(data => {
