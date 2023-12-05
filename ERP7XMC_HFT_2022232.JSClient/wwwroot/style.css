@@ -33,23 +33,21 @@ th {
 		font-weight: bolder;
 	}
 
-/*#updateCarformdiv {
-	border: outset;
-	border-color: forestgreen;
+#updateformdiv {
 	display: none;
 	flex-direction: column;
 	margin-bottom: 20px;
 }
 
-	#updateCarformdiv label, button, input {
+	#updateformdiv label, button, input {
 		margin: 10px;
 		padding: 7px;
 	}
 
-	#updateCarformdiv label {
+	#updateformdiv label {
 		font-weight: bolder;
 	}
 
 table button {
 	padding: 2px;
-}*/
+}
