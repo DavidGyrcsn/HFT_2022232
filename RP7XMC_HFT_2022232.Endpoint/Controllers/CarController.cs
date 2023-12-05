@@ -46,7 +46,7 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
 
         // PUT api/<CarController>/5
         [HttpPut]//("{id}")]
-        public void Update(int id, [FromBody] Car value)
+        public void Update([FromBody] Car value)
         {
             this.logic.Update(value);
             this.hub.Clients.All.SendAsync("CarUpdated", value);

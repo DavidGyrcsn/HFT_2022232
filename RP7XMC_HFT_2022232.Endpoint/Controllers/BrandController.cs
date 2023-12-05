@@ -46,7 +46,7 @@ namespace RP7XMC_HFT_2022232.Endpoint.Controllers
 
         // PUT api/<BrandController>/5
         [HttpPut]
-        public void Update(int id, [FromBody] Brand value)
+        public void Update([FromBody] Brand value)
         {
             this.logic.Update(value);
             this.hub.Clients.All.SendAsync("BrandUpdated", value);

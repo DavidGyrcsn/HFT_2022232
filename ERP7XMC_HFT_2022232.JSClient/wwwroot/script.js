@@ -1,20 +1,11 @@
-﻿//fetch('http://localhost:2810/car')
-//    .then(x => x.json())
-//    .then(y => console.log(y));
-
-
-
-let cars = [];
+﻿let cars = [];
 let connection = null;
-getdata();
+
+/*let CarToUpdate = -1;*/
+getcardata();
 setupSignalR();
 
-//fetch('http://localhost:2810/car')
-//    .then(x => x.json())
-//    .then(y => {
-//        cars = y;
-//        console.log(cars);
-//        display();
+//let CarToUpdate = -1;
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
@@ -23,12 +14,16 @@ function setupSignalR() {
         .build();
 
     connection.on("CarCreated", (user, message) => {
-        getdata();
+        getcardata();
     });
 
     connection.on("CarDeleted", (user, message) => {
-        getdata();
+        getcardata();
     });
+
+    //connection.on("CarUpdated", (user, message) => {
+    //    getcardata();
+    //});
 
     connection.onclose(async () => {
         await start();
@@ -48,28 +43,29 @@ async function start() {
     }
 };
 
-async function getdata() {
+async function getcardata() {
     await fetch('http://localhost:2810/Car')
         .then(x => x.json())
         .then(y => {
             cars = y;
             //console.log(Cars);
-            display();
+            displayCar();
         });
 }
 
-function display() {
+function displayCar() {
     document.getElementById('resultarea').innerHTML = "";
     cars.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             "<tr><td>" + t.carId + "</td><td>"
             + t.carName + "</td><td>" +
-            `<button type="button" onclick="remove(${t.carId})">Delete</button>`
+            `<button type="button" onclick="removeCar(${t.carId})">Delete</button>`
+            //`<button type="button" onclick="ShowCarUpdate(${t.carId})">Update</button>`
             + "</td></tr>";
     });
 }
 
-function remove(id) {
+function removeCar(id) {
     fetch('http://localhost:2810/Car/' + id, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
@@ -78,13 +74,13 @@ function remove(id) {
         .then(response => response)
         .then(data => {
             console.log('Success:', data);
-            getdata();
+            getcardata();
         })
         .catch((error) => { console.error('Error:', error); });
 
 }
 
-function create() {
+function createCar() {
     let name = document.getElementById('carName').value;
     fetch('http://localhost:2810/Car', {
         method: 'POST',
@@ -95,8 +91,30 @@ function create() {
         .then(response => response)
         .then(data => {
             console.log('Success:', data);
-            getdata();
+            getcardata();
         })
         .catch((error) => { console.error('Error:', error); });
 
 }
+//function ShowCarUpdate(id) {
+//    document.getElementById('CarToUpdate').value = Seasons.find(t => t['carId'] == id)['carName'];
+//    document.getElementById('updateCarformdiv').style.display = 'flex';
+//    CarIdToUpdate = id;
+//}
+
+//    function UpdateCar() {
+//        document.getElementById('updateCarformdiv').style.display = 'none';
+//        let name = document.getElementById('CarToUpdate').value;
+//        fetch('http://localhost:2810/Car/Update', {
+//            method: 'PUT',
+//            headers: { 'Content-Type': 'application/json', },
+//            body: JSON.stringify(
+//                { carName: name, carId: CarIdToUpdate })
+//        })
+//            .then(response => response)
+//            .then(data => {
+//                console.log('Success:', data);
+//                getSeasonData();
+//            })
+//            .catch((error) => { console.error('Error:', error); });
+//}

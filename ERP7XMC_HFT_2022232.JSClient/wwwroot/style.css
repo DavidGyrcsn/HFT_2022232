@@ -33,6 +33,23 @@ th {
 		font-weight: bolder;
 	}
 
+/*#updateCarformdiv {
+	border: outset;
+	border-color: forestgreen;
+	display: none;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+	#updateCarformdiv label, button, input {
+		margin: 10px;
+		padding: 7px;
+	}
+
+	#updateCarformdiv label {
+		font-weight: bolder;
+	}
+
 table button {
 	padding: 2px;
-}
+}*/
