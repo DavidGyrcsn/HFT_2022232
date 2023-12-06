@@ -13,9 +13,15 @@
         <label>Car Name</label>
         <input type="text" id="carName" />
         <button type="button" onclick="createCar()">Add Car</button>
+        <label>Brand Name</label>
+        <input type="text" id="brandName" />
+        <button type="button" onclick="createBrand()">Add Brand</button>
+        <label>Service Name</label>
+        <input type="text" id="serviceName" />
+        <button type="button" onclick="createService()">Add Service</button>
     </div>
 
-    <div id="updateCarformdiv">
+    <div id="updatecarformdiv">
         <label>Car Name</label>
         <input type="text" id="CarToUpdate" />
         <button type="button" onclick="UpdateCar()">Update Car</button>
@@ -32,6 +38,44 @@
         <tbody id="resultarea">
         </tbody>
     </table>
+
+    <div id="updatebrandformdiv">
+        <label>Brand Name</label>
+        <input type="text" id="BrandToUpdate" />
+        <button type="button" onclick="UpdateBrand()">Update Brand</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea2">
+        </tbody>
+    </table>
+
+    <div id="updateserviceformdiv">
+        <label>Service Name</label>
+        <input type="text" id="ServiceToUpdate" />
+        <button type="button" onclick="UpdateService()">Update Service</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea3">
+        </tbody>
+    </table>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>

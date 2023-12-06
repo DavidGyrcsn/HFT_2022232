@@ -33,18 +33,56 @@ th {
 		font-weight: bolder;
 	}
 
-#updateformdiv {
+#updatecarformdiv {
 	display: none;
 	flex-direction: column;
 	margin-bottom: 20px;
 }
 
-	#updateformdiv label, button, input {
+	#updatecarformdiv label, button, input {
 		margin: 10px;
 		padding: 7px;
 	}
 
-	#updateformdiv label {
+	#updatecarformdiv label {
+		font-weight: bolder;
+	}
+
+table button {
+	padding: 2px;
+}
+
+#updatebrandformdiv {
+	display: none;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+	#updatebrandformdiv label, button, input {
+		margin: 10px;
+		padding: 7px;
+	}
+
+	#updatebrandformdiv label {
+		font-weight: bolder;
+	}
+
+table button {
+	padding: 2px;
+}
+
+#updateserviceformdiv {
+	display: none;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+	#updateserviceformdiv label, button, input {
+		margin: 10px;
+		padding: 7px;
+	}
+
+	#updateserviceformdiv label {
 		font-weight: bolder;
 	}
 

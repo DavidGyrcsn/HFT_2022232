@@ -1,11 +1,18 @@
 ﻿let cars = [];
+let brands = [];
+let services = [];
+
 let connection = null;
 
 
 getcardata();
+getbranddata();
+getservicedata();
 setupSignalR();
 
 let CarToUpdate = -1;
+let BrandToUpdate = -1;
+let ServiceToUpdate = -1;
 
 function setupSignalR() {
     connection = new signalR.HubConnectionBuilder()
@@ -22,6 +29,28 @@ function setupSignalR() {
     });
 
     connection.on("CarUpdated", (user, message) => {
+        getcardata();
+    });
+    connection.on("BrandCreated", (user, message) => {
+        getcardata();
+    });
+
+    connection.on("BrandDeleted", (user, message) => {
+        getcardata();
+    });
+
+    connection.on("BrandUpdated", (user, message) => {
+        getcardata();
+    });
+    connection.on("ServiceCreated", (user, message) => {
+        getcardata();
+    });
+
+    connection.on("ServiceDeleted", (user, message) => {
+        getcardata();
+    });
+
+    connection.on("ServiceUpdated", (user, message) => {
         getcardata();
     });
 
@@ -52,6 +81,24 @@ async function getcardata() {
             displayCar();
         });
 }
+async function getbranddata() {
+    await fetch('http://localhost:2810/Brand')
+        .then(x => x.json())
+        .then(y => {
+            brands = y;
+            //console.log(brands);
+            displayBrand();
+        });
+}
+async function getservicedata() {
+    await fetch('http://localhost:2810/Service')
+        .then(x => x.json())
+        .then(y => {
+            services = y;
+            //console.log(Services);
+            displayService();
+        });
+}
 
 function displayCar() {
     document.getElementById('resultarea').innerHTML = "";
@@ -65,6 +112,28 @@ function displayCar() {
     });
 }
 
+function displayBrand() {
+    document.getElementById('resultarea2').innerHTML = "";
+    brands.forEach(t => {
+        document.getElementById('resultarea2').innerHTML +=
+            "<tr><td>" + t. brandId + "</td><td>"
+            + t.brandName + "</td><td>" +
+        `<button type="button" onclick="removeBrand(${t. brandId})">Delete</button>` +
+        `<button type="button" onclick="ShowBrandUpdate(${t. brandId})">Update</button>`
+            + "</td></tr>";
+    });
+}
+function displayService() {
+    document.getElementById('resultarea3').innerHTML = "";
+    services.forEach(t => {
+        document.getElementById('resultarea3').innerHTML +=
+            "<tr><td>" + t.serviceId + "</td><td>"
+        + t.serviceName + "</td><td>" +
+        `<button type="button" onclick="removeService(${t.serviceId})">Delete</button>` +
+        `<button type="button" onclick="ShowServiceUpdate(${t.serviceId})">Update</button>`
+            + "</td></tr>";
+    });
+}
 function removeCar(id) {
     fetch('http://localhost:2810/Car/' + id, {
         method: 'DELETE',
@@ -75,6 +144,35 @@ function removeCar(id) {
         .then(data => {
             console.log('Success:', data);
             getcardata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+}
+function removeBrand(id) {
+    fetch('http://localhost:2810/Brand/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', },
+        body: null
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getbranddata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+}
+
+function removeService(id) {
+    fetch('http://localhost:2810/Service/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', },
+        body: null
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getservicedata();
         })
         .catch((error) => { console.error('Error:', error); });
 
@@ -96,14 +194,56 @@ function createCar() {
         .catch((error) => { console.error('Error:', error); });
 
 }
+function createBrand() {
+    let name = document.getElementById('brandName').value;
+    fetch('http://localhost:2810/Brand', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { brandName: name })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getbranddata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+}
+function createService() {
+    let name = document.getElementById('serviceName').value;
+    fetch('http://localhost:2810/Service', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { serviceName: name })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getservicedata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+}
 function ShowCarUpdate(id) {
     document.getElementById('CarToUpdate').value = cars.find(t => t['carId'] == id)['carName'];
-    document.getElementById('updateformdiv');//.style.display = 'flex';
+    document.getElementById('updatecarformdiv').style.display = 'flex';
     CarIdToUpdate = id;
+}
+function ShowBrandUpdate(id) {
+    document.getElementById('BrandToUpdate').value = brands.find(t => t['brandId'] == id)['brandName'];
+    document.getElementById('updatebrandformdiv').style.display = 'flex';
+    BrandIdToUpdate = id;
+}
+function ShowServiceUpdate(id) {
+    document.getElementById('ServiceToUpdate').value = services.find(t => t['serviceId'] == id)['serviceName'];
+    document.getElementById('updateserviceformdiv').style.display = 'flex';
+    ServiceIdToUpdate = id;
 }
 
 function UpdateCar() {
-    document.getElementById('updateformdiv');//.style.display = 'none';
+    document.getElementById('updatecarformdiv').style.display = 'none';
         let name = document.getElementById('CarToUpdate').value;
         fetch('http://localhost:2810/Car', {
             method: 'PUT',
@@ -117,4 +257,36 @@ function UpdateCar() {
                 getcardata();
             })
             .catch((error) => { console.error('Error:', error); });
+}
+function UpdateBrand() {
+    document.getElementById('updatebrandformdiv').style.display = 'none';
+    let name = document.getElementById('BrandToUpdate').value;
+    fetch('http://localhost:2810/Brand', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { brandName: name, brandId: BrandIdToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getbranddata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
+function UpdateService() {
+    document.getElementById('updateserviceformdiv').style.display = 'none';
+    let name = document.getElementById('ServiceToUpdate').value;
+    fetch('http://localhost:2810/Service', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { serviceName: name, serviceId: ServiceIdToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getservicedata();
+        })
+        .catch((error) => { console.error('Error:', error); });
 }
