@@ -10,11 +10,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using RP7XMC_HFT_2022232.Models;
+using Microsoft.VisualBasic;
 
 namespace RP7XMC_HFT_2022232.WpfClient
 {
     public class BrandWindowViewModel : ObservableRecipient
     {
+        public string T_Box { get; set; }
+        public string T_Box2 { get; set; }
+        public string T_Box3 { get; set; }
+        public string T_Box4 { get; set; }
+
         private string errorMessage;
 
         public string ErrorMessage
@@ -25,6 +31,16 @@ namespace RP7XMC_HFT_2022232.WpfClient
 
 
         public RestCollection<Brand> Brands { get; set; }
+
+        public List<string> HighestCost { get; set; }
+        public List<string> LowestCost { get; set; }
+        public List<string> AverageCostForAllBrands { get; set; }
+        public List<string> AlphabeticOrder { get; set; }
+
+        public RestService service;
+
+        public ICommand MaintenanceCostUnder { get; set; }
+
 
         private Brand selectedBrand;
 
@@ -72,6 +88,7 @@ namespace RP7XMC_HFT_2022232.WpfClient
             if (!IsInDesignMode)
             {
                 Brands = new RestCollection<Brand>("http://localhost:2810/", "brand", "hub");
+                service = new RestService("http://localhost:2810/", "brand");
                 CarCommand = new RelayCommand(() =>
                 {
                     new MainWindow().Show();
@@ -80,6 +97,38 @@ namespace RP7XMC_HFT_2022232.WpfClient
                 {
                     new ServiceWindow().Show();
                 });
+
+                HighestCost = new RestService("http://localhost:2810/").Get<string>("Values/HighestCost");
+                foreach (var item in HighestCost)
+                {
+                    T_Box = item.ToString();
+                }
+
+                LowestCost = new RestService("http://localhost:2810/").Get<string>("Values/LowestCost");
+                foreach (var item in LowestCost)
+                {
+                    T_Box2 = item.ToString();
+                }
+
+                AverageCostForAllBrands = new RestService("http://localhost:2810/").Get<string>("Values/AverageCostForAllBrands");
+                foreach (var item in AverageCostForAllBrands)
+                {
+                    T_Box3 = item.ToString();
+                }
+
+                AlphabeticOrder = new RestService("http://localhost:2810/").Get<string>("Values/AlphabeticOrder");
+                foreach (var item in AlphabeticOrder)
+                {
+                    T_Box4 = item.ToString();
+                }
+
+                MaintenanceCostUnder = new RelayCommand(() =>
+                {
+                    int data = int.Parse(Interaction.InputBox("MaintenanceCostUnder"));
+                    double gaben = service.Get<double>(data, "Values/MCUnder");
+                    MessageBox.Show($"MaintenanceCostUnder {data} there are {gaben} cars.");
+                });
+
 
                 CreateBrandCommand = new RelayCommand(() =>
                 {

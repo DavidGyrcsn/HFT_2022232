@@ -290,3 +290,41 @@ function UpdateService() {
         })
         .catch((error) => { console.error('Error:', error); });
 }
+async function HighestCost() {
+    let cost;
+    await fetch('http://localhost:2810/Values/HighestCost')
+        .then(x => x.json())
+        .then(y => cost = y);
+    alert("HighestCost: " + cost);
+}
+async function LowestCost() {
+    let cost;
+    await fetch('http://localhost:2810/Values/LowestCost')
+        .then(x => x.json())
+        .then(y => cost = y);
+    alert("LowestCost: " + cost);
+}
+async function AverageCostForAllBrands() {
+    let cost;
+    await fetch('http://localhost:2810/Values/AverageCostForAllBrands')
+        .then(x => x.json())
+        .then(y => cost = y);
+    alert("AverageCostForAllBrands: " + cost);
+}
+
+async function AlphabeticOrder() {
+    let cost;
+    await fetch('http://localhost:2810/Values/AlphabeticOrder')
+        .then(x => x.json())
+        .then(y => cost = y);
+    alert("AlphabeticOrder: " + cost);
+}
+
+async function MaintenanceCostUnder() {
+    let cost = prompt("MaintenanceCostUnder type in a number");
+    let cost2;
+    await fetch('http://localhost:2810/Values/MaintenanceCostUnder/'+cost)
+        .then(x => x.json())
+        .then(y => cost2 = y);
+    alert("MaintenanceCostUnder"+ cost + ": " + cost2);
+}

@@ -5,14 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RP7XMC_HFT_2022232.WpfClient"
       mc:Ignorable="d" 
-      Title="BrandWindow" Height="450" Width="800">
+      Title="BrandWindow" Height="1000" Width="800">
     <Window.DataContext>
         <local:BrandWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListBox ItemsSource="{Binding Brands}" SelectedItem="{Binding SelectedBrand}">
             <ListBox.ItemTemplate>
@@ -21,15 +22,40 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="2">
             <Label Content="Name" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedBrand.BrandName}" Padding="10" Margin="0,0,0,30" />
-            <Button Content="Create Brand" Command="{Binding CreateBrandCommand}" Margin="10" Padding="10" />
-            <Button Content="Delete Brand" Command="{Binding DeleteBrandCommand}" Margin="10" Padding="10" />
-            <Button Content="Update Brand" Command="{Binding UpdateBrandCommand}" Margin="10" Padding="10" />
-            <Button Content="Open Cars" Command="{Binding CarCommand}" Margin="10" Padding="10" />
-            <Button Content="Open Services" Command="{Binding ServiceCommand}" Margin="10" Padding="10" />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+            <TextBox Text="{Binding SelectedBrand.BrandName}" Padding="10" Margin="0,0,0,0" />
+            <Button Content="Create Brand" Command="{Binding CreateBrandCommand}" Margin="10" Padding="10" Height="34" />
+            <Button Content="Delete Brand" Command="{Binding DeleteBrandCommand}" Margin="10" Padding="10" Height="34" />
+            <Button Content="Update Brand" Command="{Binding UpdateBrandCommand}" Margin="10" Padding="10" Height="34" />
+            <Button Content="Open Cars" Command="{Binding CarCommand}" Margin="10" Padding="10" Height="34" />
+            <Button Content="Open Services" Command="{Binding ServiceCommand}" Margin="10" Padding="10" Height="34" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" Height="0" RenderTransformOrigin="0.5,0.5" >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <StackPanel>
+                <Label Background="Black" Height="1"/>
+                <Label Content="Highest Cost" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <TextBox Text="{Binding T_Box}" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <Label Background="Black" Height="1"/>
+                <Label Content="Lowest Cost" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <TextBox Text="{Binding T_Box2}" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <Label Background="Black" Height="1"/>
+                <Label Content="AverageCostForAllBrands" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <TextBox Text="{Binding T_Box3}" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <Label Background="Black" Height="1"/>
+                <Label Content="AlphabeticOrder" FontSize="10" HorizontalContentAlignment="Center" Margin="10" Padding="10" Height="34"/>
+                <TextBlock Text="{Binding T_Box4}" FontSize="10"  Margin="10" Padding="10"/>
+                <Label Background="Black" Height="1"/>
+                <Button Content="MaintenanceCostUnder" Padding="10" Margin="10" Command="{Binding MaintenanceCostUnder}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
