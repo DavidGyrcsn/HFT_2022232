@@ -117,10 +117,14 @@ namespace RP7XMC_HFT_2022232.WpfClient
                 }
 
                 AlphabeticOrder = new RestService("http://localhost:2810/").Get<string>("Values/AlphabeticOrder");
+                StringBuilder stringBuilder = new StringBuilder();
+
                 foreach (var item in AlphabeticOrder)
                 {
-                    T_Box4 = item.ToString();
+                    stringBuilder.Append(item.ToString());
+                    stringBuilder.Append(", ");
                 }
+                T_Box4 = stringBuilder.ToString();
 
                 MaintenanceCostUnder = new RelayCommand(() =>
                 {
